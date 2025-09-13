@@ -13,17 +13,22 @@ export const Archive = () => {
             <main className="flex gap-3">
                 <Sidebar />
                 <div>
-                <div className="flex flex-wrap gap-6 w-screen mt-7">
+                <div className="flex flex-wrap gap-6 mt-7 px-6">
                 {
-                    archive?.length > 0 && archive.map(({ id, title, text,isPinned }) => (
+                    archive && archive.length > 0 ? (
+                        archive.map(({ id, title, text, isPinned }) => (
                         <NotesCard
                             key={id}
                             id={id}
                             title={title}
                             text={text}
                             isPinned={isPinned}
+                            location="archive"
                         />
-                    ))
+                        ))
+                    ) : (
+                        <p className="text-gray-500">No notes in archive</p>
+                    )
                 }
                 </div>
                 </div>

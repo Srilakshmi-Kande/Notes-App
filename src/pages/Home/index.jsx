@@ -5,7 +5,7 @@ import { useNotes } from "../../context/notes_context";
 
 export const Home = () => {
 
-    const {title,text,notes,archive,notesDispatch} = useNotes();
+    const {title,text,notes,notesDispatch} = useNotes();
 
     const onTitleChange = (e) => {
         notesDispatch({
@@ -33,8 +33,6 @@ export const Home = () => {
     const pinnedNotes = notes?.length > 0 && notes.filter(({isPinned}) => isPinned);
     const unpinnedNotes = notes?.length > 0 && notes.filter(({isPinned}) => !isPinned);
 
-    console.log(archive);
-
     return (
         <>
             <Navbar />
@@ -42,10 +40,10 @@ export const Home = () => {
                 <Sidebar />
                 <div className="flex flex-col w-screen mt-7">
                     <div className="flex flex-col w-[450px] relative self-center">
-                        <input value={title} onChange={onTitleChange} className="border border-neutral-800 rounded-t-md focus:outline-none border-b-0 p-1" placeholder="Enter title" />
+                        <input value={title} onChange={onTitleChange} className="border border-neutral-800 rounded-t-md focus:outline-none border-b p-1" placeholder="Enter title" />
                         <textarea value={text} onChange={onTextChange} className="h-[100px] border border-neutral-800 rounded-b-md focus:outline-none border-t-0 p-1" placeholder="Enter text" />
                         <button disabled={title.length == 0} 
-                            onClick={onAddClick} className="w-7 h-7 absolute bottom-0 right-0 bg-indigo-800 text-slate-50 m-1 p-0.5 rounded-full hover:bg-indigo-600 flex align-center gap-1">
+                            onClick={onAddClick} className="w-7 h-7 absolute bottom-0 right-0 bg-indigo-800 text-slate-50 m-1 p-0.5 rounded-full hover:bg-indigo-600 flex align-center gap-1 cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed">
                             <span className="material-symbols-outlined">add</span>
                         </button>
                     </div>
@@ -57,7 +55,7 @@ export const Home = () => {
                                     <div className="flex flex-wrap gap-6">
                                         {
                                             pinnedNotes?.length > 0 && pinnedNotes.map(({id,title,text, isPinned}) => {
-                                                return <NotesCard key={id} id={id} title={title} text={text} isPinned={isPinned} />
+                                                return <NotesCard key={id} id={id} title={title} text={text} isPinned={isPinned} location={"notes"} />
                                             })
                                         }
                                     </div>
@@ -71,7 +69,7 @@ export const Home = () => {
                             <div className="flex flex-wrap gap-6">
                                 {
                                     unpinnedNotes?.length > 0 && unpinnedNotes.map(({id,title,text, isPinned}) => {
-                                        return <NotesCard key={id} id={id} title={title} text={text} isPinned={isPinned} />
+                                        return <NotesCard key={id} id={id} title={title} text={text} isPinned={isPinned} location={"notes"} />
                                     })
                                 }
                             </div>
