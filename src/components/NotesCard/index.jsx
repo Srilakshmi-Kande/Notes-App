@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNotes } from "../../context/notes_context";
 import { findNotesInArchive } from "../../utils/findNotesInArchive";
 import { findNotesInBin } from "../../utils/findNotesInBin";
-import { findNotesInImportant } from "../../utils/findNotesInimportant";
+import { findNotesInImportant } from "../../utils/findNotesInImportant";
 
 export const NotesCard = ({ id, title, text, isPinned, location }) => {
   const { notesDispatch, archive, bin, important } = useNotes();
