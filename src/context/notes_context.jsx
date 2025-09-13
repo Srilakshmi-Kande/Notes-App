@@ -1,28 +1,36 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useReducer, useEffect } from "react";
 import { notesReducer } from "../reducers/notesReducer";
 
 const NotesContext = createContext();
 
-const NotesProvider = ({children}) => {
+const NotesProvider = ({ children }) => {
+  const initialState = {
+    title: "",
+    text: "",
+    notes: [],
+    archive: [],
+    important: [],
+    bin: [],
+  };
 
-    const initialState = {
-        title: '',
-        text: '',
-        notes: [],
-        archive: [],
-        important: [],
-        bin: [],
-    }
+  const storedState = JSON.parse(localStorage.getItem("notesState"));
 
-    const [{title,text,notes,archive,bin,important}, notesDispatch] = useReducer(notesReducer, initialState);
+  const [state, notesDispatch] = useReducer(
+    notesReducer,
+    storedState || initialState
+  );
+  
+  useEffect(() => {
+    localStorage.setItem("notesState", JSON.stringify(state));
+  }, [state]);
 
-    return (
-        <NotesContext.Provider value={{title,text,notes,archive,bin,important, notesDispatch}}>
-            {children}
-        </NotesContext.Provider>
-    )
-}
+  return (
+    <NotesContext.Provider value={{ ...state, notesDispatch }}>
+      {children}
+    </NotesContext.Provider>
+  );
+};
 
 const useNotes = () => useContext(NotesContext);
 
-export { NotesProvider, useNotes }
+export { NotesProvider, useNotes };
