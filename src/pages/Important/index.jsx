@@ -2,15 +2,19 @@ import { Navbar } from "../../components/Navbar";
 import { Sidebar } from "../../components/Sidebar";
 import { useNotes } from "../../context/notes_context";
 import { NotesCard } from "../../components/NotesCard";
+import { useState } from "react";
 
 export const Important = () => {
+
+  const [showSidebar, setShowSidebar] = useState(false);
+
   const { important } = useNotes();
 
   return (
     <>
-      <Navbar />
+      <Navbar onMenuClick={() => setShowSidebar(!showSidebar)} />
       <main className="flex gap-3">
-        <Sidebar />
+        <Sidebar className={`${showSidebar ? "block" : "hidden"} md:block fixed md:static bg-white w-60 h-full`} />
         <div className="flex-1 mt-7 px-6">
           <div className="flex flex-wrap gap-6">
             {important?.length > 0 ? (

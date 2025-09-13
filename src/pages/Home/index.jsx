@@ -2,8 +2,11 @@ import { Navbar } from "../../components/Navbar/index";
 import { NotesCard } from "../../components/NotesCard";
 import { Sidebar } from "../../components/Sidebar";
 import { useNotes } from "../../context/notes_context";
+import { useState } from "react";
 
 export const Home = () => {
+
+    const [showSidebar, setShowSidebar] = useState(false);
 
     const {title,text,notes,notesDispatch} = useNotes();
 
@@ -35,11 +38,11 @@ export const Home = () => {
 
     return (
         <>
-            <Navbar />
+            <Navbar onMenuClick={() => setShowSidebar(!showSidebar)} />
             <main className="flex gap-3">
-                <Sidebar />
+                <Sidebar className={`${showSidebar ? "block" : "hidden"} md:block fixed md:static bg-white w-60 h-full z-50`}/>
                 <div className="flex flex-col w-screen mt-7">
-                    <div className="flex flex-col w-[450px] relative self-center">
+                    <div className="flex flex-col w-[300px] relative self-center sm:w-[450px]">
                         <input value={title} onChange={onTitleChange} className="border border-neutral-800 rounded-t-md focus:outline-none border-b p-1" placeholder="Enter title" />
                         <textarea value={text} onChange={onTextChange} className="h-[100px] border border-neutral-800 rounded-b-md focus:outline-none border-t-0 p-1" placeholder="Enter text" />
                         <button disabled={title.length == 0} 
@@ -47,7 +50,7 @@ export const Home = () => {
                             <span className="material-symbols-outlined">add</span>
                         </button>
                     </div>
-                    <div className="mt-14 ml-10 flex flex-col gap-5">
+                    <div className="mt-10 ml-7 flex flex-col gap-5 sm:mt-14 sm:ml-10">
                         {
                             pinnedNotes?.length > 0 && (
                                 <div>

@@ -2,8 +2,12 @@ import { Navbar } from "../../components/Navbar"
 import { Sidebar } from "../../components/Sidebar"
 import { useNotes } from "../../context/notes_context"
 import { NotesCard } from "../../components/NotesCard"
+import { useState } from "react"
 
 export const Bin = () => {
+
+  const [showSidebar, setShowSidebar] = useState(false);
+
   const { bin, notesDispatch } = useNotes();
 
   const onRestoreAll = () => {
@@ -24,9 +28,9 @@ export const Bin = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar onMenuClick={() => setShowSidebar(!showSidebar)} />
       <main className="flex gap-3">
-        <Sidebar />
+        <Sidebar className={`${showSidebar ? "block" : "hidden"} md:block fixed md:static bg-white w-60 h-full z-50`}/>
         <div className="flex-1 mt-4 px-6">
           <div className="flex justify-between items-center mb-4">
             <div className="flex gap-3">

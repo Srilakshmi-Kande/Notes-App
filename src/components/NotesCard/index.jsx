@@ -52,7 +52,7 @@ export const NotesCard = ({ id, title, text, isPinned, location }) => {
   });
 
   return (
-    <div className="border border-neutral-800 rounded-md w-[300px] overflow-hidden">
+    <div className="border border-neutral-800 rounded-md w-[250px] sm:w-[300px] overflow-hidden">
       <div className="flex justify-between items-center border-b border-neutral-800 p-2">
         {isEditing && location !== "bin" ? (
           <input
@@ -61,7 +61,7 @@ export const NotesCard = ({ id, title, text, isPinned, location }) => {
             onChange={(e) => setEditTitle(e.target.value)}
           />
         ) : (
-          <p className="font-medium">{title}</p>
+          <p className="font-medium text-sm sm:text-base md:text-lg">{title}</p>
         )}
 
         {location !== "bin" && (
@@ -94,13 +94,13 @@ export const NotesCard = ({ id, title, text, isPinned, location }) => {
           {isEditing && location !== "bin" ? (
             <>
               <button
-                className="px-2 py-1 bg-green-600 text-white rounded cursor-pointer"
+                className="px-2 py-1 bg-green-600 text-white rounded cursor-pointer sm:px-3 sm:py-2 text-xs sm:text-sm"
                 onClick={onSaveEdit}
               >
                 Save
               </button>
               <button
-                className="px-2 py-1 bg-gray-600 text-white rounded cursor-pointer"
+                className="px-2 py-1 bg-gray-600 text-white rounded cursor-pointer sm:px-3 sm:py-2 text-xs sm:text-sm"
                 onClick={() => setIsEditing(false)}
               >
                 Cancel
